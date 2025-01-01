@@ -1,13 +1,13 @@
-diff --git a/src/mesh/FloodingRouter.cpp b/src/mesh/FloodingRouter.cpp
-index f9454090..fb5a733b 100644
---- a/src/mesh/FloodingRouter.cpp
-+++ b/src/mesh/FloodingRouter.cpp
-@@ -41,7 +41,7 @@ bool FloodingRouter::shouldFilterReceived(const meshtastic_MeshPacket *p)
-             LOG_DEBUG("Repeated reliable tx");
-             if (!perhapsRebroadcast(p) && isToUs(p) && p->want_ack) {
-                 // FIXME - channel index should be used, but the packet is still encrypted here
--                sendAckNak(meshtastic_Routing_Error_NONE, getFrom(p), p->id, 0, 0);
-+                //sendAckNak(meshtastic_Routing_Error_NONE, getFrom(p), p->id, 0, 0);
-             }
-         }
+diff --git a/src/mesh/Router.cpp b/src/mesh/Router.cpp
+index f55e7cc5..7d30f2d1 100644
+--- a/src/mesh/Router.cpp
++++ b/src/mesh/Router.cpp
+@@ -137,7 +137,7 @@ meshtastic_MeshPacket *Router::allocForSending()
+  */
+ void Router::sendAckNak(meshtastic_Routing_Error err, NodeNum to, PacketId idFrom, ChannelIndex chIndex, uint8_t hopLimit)
+ {
+-    routingModule->sendAckNak(err, to, idFrom, chIndex, hopLimit);
++    //routingModule->sendAckNak(err, to, idFrom, chIndex, hopLimit);
+ }
  
+ void Router::abortSendAndNak(meshtastic_Routing_Error err, meshtastic_MeshPacket *p)
