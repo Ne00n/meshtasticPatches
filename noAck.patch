@@ -1,22 +1,13 @@
 diff --git a/src/mesh/FloodingRouter.cpp b/src/mesh/FloodingRouter.cpp
-index f9454090..f4fb903a 100644
+index f9454090..fb5a733b 100644
 --- a/src/mesh/FloodingRouter.cpp
 +++ b/src/mesh/FloodingRouter.cpp
-@@ -34,17 +34,6 @@ bool FloodingRouter::shouldFilterReceived(const meshtastic_MeshPacket *p)
-             iface->clampToLateRebroadcastWindow(getFrom(p), p->id);
-         }
- 
--        /* If the original transmitter is doing retransmissions (hopStart equals hopLimit) for a reliable transmission, e.g., when
--        the ACK got lost, we will handle the packet again to make sure it gets an ACK to its packet. */
--        bool isRepeated = p->hop_start > 0 && p->hop_start == p->hop_limit;
--        if (isRepeated) {
--            LOG_DEBUG("Repeated reliable tx");
--            if (!perhapsRebroadcast(p) && isToUs(p) && p->want_ack) {
--                // FIXME - channel index should be used, but the packet is still encrypted here
+@@ -41,7 +41,7 @@ bool FloodingRouter::shouldFilterReceived(const meshtastic_MeshPacket *p)
+             LOG_DEBUG("Repeated reliable tx");
+             if (!perhapsRebroadcast(p) && isToUs(p) && p->want_ack) {
+                 // FIXME - channel index should be used, but the packet is still encrypted here
 -                sendAckNak(meshtastic_Routing_Error_NONE, getFrom(p), p->id, 0, 0);
--            }
--        }
--
-         return true;
-     }
++                //sendAckNak(meshtastic_Routing_Error_NONE, getFrom(p), p->id, 0, 0);
+             }
+         }
  
