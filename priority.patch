@@ -1,0 +1,13 @@
+diff --git a/src/mesh/MeshPacketQueue.cpp b/src/mesh/MeshPacketQueue.cpp
+index d7ee6580..78acdb90 100644
+--- a/src/mesh/MeshPacketQueue.cpp
++++ b/src/mesh/MeshPacketQueue.cpp
+@@ -52,7 +52,7 @@ void fixPriority(meshtastic_MeshPacket *p)
+                 // if text or admin, give high priority
+             } else if (p->decoded.portnum == meshtastic_PortNum_TEXT_MESSAGE_APP ||
+                        p->decoded.portnum == meshtastic_PortNum_ADMIN_APP) {
+-                p->priority = meshtastic_MeshPacket_Priority_HIGH;
++                p->priority = meshtastic_MeshPacket_Priority_ACK;
+                 // if it is a response, give higher priority to let it arrive early and stop the request being relayed
+             } else if (p->decoded.request_id != 0) {
+                 p->priority = meshtastic_MeshPacket_Priority_RESPONSE;
