@@ -1,13 +1,15 @@
 diff --git a/src/mesh/Router.cpp b/src/mesh/Router.cpp
-index f55e7cc5..7d30f2d1 100644
+index f55e7cc5..2c8a64fb 100644
 --- a/src/mesh/Router.cpp
 +++ b/src/mesh/Router.cpp
-@@ -137,7 +137,7 @@ meshtastic_MeshPacket *Router::allocForSending()
+@@ -137,7 +137,9 @@ meshtastic_MeshPacket *Router::allocForSending()
   */
  void Router::sendAckNak(meshtastic_Routing_Error err, NodeNum to, PacketId idFrom, ChannelIndex chIndex, uint8_t hopLimit)
  {
 -    routingModule->sendAckNak(err, to, idFrom, chIndex, hopLimit);
-+    //routingModule->sendAckNak(err, to, idFrom, chIndex, hopLimit);
++    if (isRebroadcaster()) {
++        routingModule->sendAckNak(err, to, idFrom, chIndex, hopLimit);
++    }
  }
  
  void Router::abortSendAndNak(meshtastic_Routing_Error err, meshtastic_MeshPacket *p)
