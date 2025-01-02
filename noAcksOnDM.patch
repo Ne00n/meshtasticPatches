@@ -7,7 +7,7 @@ index 3e2850bc..ff0de19a 100644
      if (isToUs(p)) { // ignore ack/nak/want_ack packets that are not address to us (we only handle 0 hop reliability)
          if (p->want_ack) {
 +            // Only proceed with ACK if it's not a private message (private messages have no channel)
-+            bool isPrivateMessage = !p->has_channel;
++            bool isPrivateMessage = ('channel' in p == false);
 +            
              if (MeshModule::currentReply) {
                  LOG_DEBUG("Another module replied to this message, no need for 2nd ack");
