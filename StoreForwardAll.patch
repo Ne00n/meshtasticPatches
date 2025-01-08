@@ -1,0 +1,13 @@
+diff --git a/src/modules/StoreForwardModule.cpp b/src/modules/StoreForwardModule.cpp
+index 0a6e1b4c..59293a8a 100644
+--- a/src/modules/StoreForwardModule.cpp
++++ b/src/modules/StoreForwardModule.cpp
+@@ -578,7 +578,7 @@ StoreForwardModule::StoreForwardModule()
+     if (moduleConfig.store_forward.enabled) {
+ 
+         // Router
+-        if ((config.device.role == meshtastic_Config_DeviceConfig_Role_ROUTER || moduleConfig.store_forward.is_server)) {
++        if ((moduleConfig.store_forward.is_server)) {
+             LOG_INFO("Init Store & Forward Module in Server mode");
+             if (memGet.getPsramSize() > 0) {
+                 if (memGet.getFreePsram() >= 1024 * 1024) {
