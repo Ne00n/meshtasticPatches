@@ -1,5 +1,5 @@
 diff --git a/src/mesh/MeshTypes.h b/src/mesh/MeshTypes.h
-index 1d6bd342..94f86b90 100644
+index 680926d3c..c6a3147b6 100644
 --- a/src/mesh/MeshTypes.h
 +++ b/src/mesh/MeshTypes.h
 @@ -38,7 +38,7 @@ enum RxSource {
@@ -9,5 +9,5 @@ index 1d6bd342..94f86b90 100644
 -#define HOP_RELIABLE 3
 +#define HOP_RELIABLE 7
  
- typedef int ErrorCode;
- 
+ // For old firmware or when falling back to flooding, there is no next-hop preference
+ #define NO_NEXT_HOP_PREFERENCE 0
