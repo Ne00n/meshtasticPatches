@@ -1,9 +1,13 @@
 diff --git a/src/PowerFSM.cpp b/src/PowerFSM.cpp
-index 4c4d203c..df457930 100644
+index dbe4796cf..f8fa0249c 100644
 --- a/src/PowerFSM.cpp
 +++ b/src/PowerFSM.cpp
-@@ -42,7 +42,7 @@ static bool isPowered()
+@@ -38,11 +38,9 @@ static bool isPowered()
+     return true;
+ #endif
  
+-    bool isRouter = (config.device.role == meshtastic_Config_DeviceConfig_Role_ROUTER ? 1 : 0);
+-
      // If we are not a router and we already have AC power go to POWER state after init, otherwise go to ON
      // We assume routers might be powered all the time, but from a low current (solar) source
 -    bool isPowerSavingMode = config.power.is_power_saving || isRouter;
@@ -11,12 +15,12 @@ index 4c4d203c..df457930 100644
  
      /* To determine if we're externally powered, assumptions
          1) If we're powered up and there's no battery, we must be getting power externally. (because we'd be dead otherwise)
-@@ -383,7 +383,7 @@ void PowerFSM_setup()
-     // See: https://github.com/meshtastic/firmware/issues/1071
-     // Don't add power saving transitions if we are a power saving tracker or sensor or have Wifi enabled. Sleep will be initiated
-     // through the modules
+@@ -386,7 +384,7 @@ void PowerFSM_setup()
+                              config.device.role == meshtastic_Config_DeviceConfig_Role_TAK_TRACKER ||
+                              config.device.role == meshtastic_Config_DeviceConfig_Role_SENSOR;
+ 
 -    if ((isRouter || config.power.is_power_saving) && !isWifiAvailable() && !isTrackerOrSensor) {
-+    if ((config.power.is_power_saving) && !isWifiAvailable() && !isTrackerOrSensor) {
++        if ((config.power.is_power_saving) && !isWifiAvailable() && !isTrackerOrSensor) {
          powerFSM.add_timed_transition(&stateNB, &stateLS,
                                        Default::getConfiguredOrDefaultMs(config.power.min_wake_secs, default_min_wake_secs), NULL,
                                        "Min wake timeout");
