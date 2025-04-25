@@ -1,28 +1,20 @@
-diff --git a/src/mesh/Default.h b/src/mesh/Default.h
-index d39886d1..1763a9b3 100644
---- a/src/mesh/Default.h
-+++ b/src/mesh/Default.h
-@@ -5,6 +5,7 @@
- #define ONE_DAY 24 * 60 * 60
- #define ONE_MINUTE_MS 60 * 1000
- #define THIRTY_SECONDS_MS 30 * 1000
-+#define TEN_SECONDS_MS 10 * 1000
- #define FIVE_SECONDS_MS 5 * 1000
- 
- #define min_default_telemetry_interval_secs 30 * 60
 diff --git a/src/mesh/PhoneAPI.cpp b/src/mesh/PhoneAPI.cpp
-index 8c1ba74c..fe3af3be 100644
+index 204886be5..a96657af1 100644
 --- a/src/mesh/PhoneAPI.cpp
 +++ b/src/mesh/PhoneAPI.cpp
-@@ -634,9 +634,9 @@ bool PhoneAPI::handleToRadioPacket(meshtastic_MeshPacket &p)
+@@ -637,14 +637,7 @@ bool PhoneAPI::handleToRadioPacket(meshtastic_MeshPacket &p)
+             return false;
          }
  
-     if (p.decoded.portnum == meshtastic_PortNum_TRACEROUTE_APP && lastPortNumToRadio[p.decoded.portnum] &&
+-    if (p.decoded.portnum == meshtastic_PortNum_TRACEROUTE_APP && lastPortNumToRadio[p.decoded.portnum] &&
 -        Throttle::isWithinTimespanMs(lastPortNumToRadio[p.decoded.portnum], THIRTY_SECONDS_MS)) {
-+        Throttle::isWithinTimespanMs(lastPortNumToRadio[p.decoded.portnum], TEN_SECONDS_MS)) {
-         LOG_WARN("Rate limit portnum %d", p.decoded.portnum);
+-        LOG_WARN("Rate limit portnum %d", p.decoded.portnum);
 -        sendNotification(meshtastic_LogRecord_Level_WARNING, p.id, "TraceRoute can only be sent once every 30 seconds");
-+        sendNotification(meshtastic_LogRecord_Level_WARNING, p.id, "TraceRoute can only be sent once every 10 seconds");
+-        meshtastic_QueueStatus qs = router->getQueueStatus();
+-        service->sendQueueStatusToPhone(qs, 0, p.id);
+-        return false;
+-    } else if (p.decoded.portnum == meshtastic_PortNum_TRACEROUTE_APP && isBroadcast(p.to) && p.hop_limit > 0) {
++    if (p.decoded.portnum == meshtastic_PortNum_TRACEROUTE_APP && isBroadcast(p.to) && p.hop_limit > 0) {
+         sendNotification(meshtastic_LogRecord_Level_WARNING, p.id, "Multi-hop traceroute to broadcast address is not allowed");
          meshtastic_QueueStatus qs = router->getQueueStatus();
          service->sendQueueStatusToPhone(qs, 0, p.id);
-         return false;
