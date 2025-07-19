@@ -1,13 +1,13 @@
 diff --git a/src/mesh/Default.h b/src/mesh/Default.h
-index 208f992c8..e169b50d7 100644
+index 2f05da98d..8839f3ca3 100644
 --- a/src/mesh/Default.h
 +++ b/src/mesh/Default.h
-@@ -20,7 +20,7 @@
+@@ -22,7 +22,7 @@
  #define default_node_info_broadcast_secs 3 * 60 * 60
  #define default_neighbor_info_broadcast_secs 6 * 60 * 60
  #define min_node_info_broadcast_secs 60 * 60 // No regular broadcasts of more than once an hour
 -#define min_neighbor_info_broadcast_secs 4 * 60 * 60
 +#define min_neighbor_info_broadcast_secs 1 * 60 * 60
  #define default_map_publish_interval_secs 60 * 60
- 
- #define default_mqtt_address "mqtt.meshtastic.org"
+ #ifdef USERPREFS_RINGTONE_NAG_SECS
+ #define default_ringtone_nag_secs USERPREFS_RINGTONE_NAG_SECS
